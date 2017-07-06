@@ -17,7 +17,9 @@ export default class NewPlaylist extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log("bob?", event.target.value, "state", this.state.inputValue)
+       this.setState({
+           inputValue:''
+       });
     }
 
     handleChange(event) {
@@ -50,7 +52,7 @@ export default class NewPlaylist extends Component {
                         </div>
                         <div className="form-group">
                             <div className="col-xs-10 col-xs-offset-2">
-                                <button type="submit" className="btn btn-success">Create Playlist</button>
+                                <button type="submit" className="btn btn-success" disabled ={this.state.inputValue.length>16 ||this.state.inputValue.length<1 }>Create Playlist</button>
                             </div>
                         </div>
                     </fieldset>
