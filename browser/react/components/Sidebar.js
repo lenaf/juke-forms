@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Main from './Main'
 
 const Sidebar = (props) => {
 
@@ -24,6 +25,18 @@ const Sidebar = (props) => {
             <span className="glyphicon glyphicon-plus"></span> PLAYLIST
           </Link>
         </h4>
+        <hr />
+        <ul className="list-unstyled">
+          {
+            props.playlists.map(playlist => {
+              return (
+                <li key={playlist.id} className="playlist-item menu-item">
+                  <Link to={`/playlists/${playlist.id}`}>{playlist.name}</Link>
+                </li>
+              );
+            })
+          }
+        </ul>
       </section>
     </sidebar>
   );

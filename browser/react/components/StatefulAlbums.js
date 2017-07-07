@@ -4,14 +4,14 @@ import AllAlbums from './AllAlbums';
 
 export default class StatefulAlbums extends Component {
 
-  constructor () {
+  constructor() {
     super();
     this.state = {
       albums: []
     };
   }
 
-  componentDidMount () {
+  componentDidMount() {
     axios.get('/api/albums/')
       .then(res => res.data)
       .then(albums => {
@@ -19,7 +19,7 @@ export default class StatefulAlbums extends Component {
       });
   }
 
-  render () {
+  render() {
 
     const albums = this.state.albums;
 

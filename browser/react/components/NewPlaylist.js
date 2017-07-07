@@ -16,24 +16,16 @@ export default class NewPlaylist extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-       this.setState({
-           inputValue:''
-       });
-       axios.post('/api/playlists/',{name : this.state.inputValue})
-        .then(res => res.data)
-        .then(result => {
-         console.log(result) // response json from the server!
-  });
-
-
+    handleSubmit(evt) {
+        evt.preventDefault(); // prevent the page from refreshing
+        this.props.addPlaylist(this.state.inputValue); // pass the input value to the method from Main!
+        this.setState({ inputValue: '' }); // reset the input value to be empty
     }
 
     handleChange(event) {
         this.setState({
             inputValue: event.target.value,
-            dirty:true
+            dirty: true
         });
 
     }
@@ -60,13 +52,13 @@ export default class NewPlaylist extends Component {
                                 />
                             </div>
                         </div>
-                        { this.state.inputValue.length>16 ||(this.state.dirty &&this.state.inputValue.length<1) ?
-                        <div className="alert alert-warning">Please enter a name</div> :
-                        <div></div>
+                        {this.state.inputValue.length > 16 || (this.state.dirty && this.state.inputValue.length < 1) ?
+                            <div className="alert alert-warning">Please enter a name</div> :
+                            <div></div>
                         }
                         <div className="form-group">
                             <div className="col-xs-10 col-xs-offset-2">
-                                <button type="submit" className="btn btn-success" disabled ={this.state.inputValue.length>16 ||this.state.inputValue.length<1}>Create Playlist</button>
+                                <button type="submit" className="btn btn-success" disabled={this.state.inputValue.length > 16 || this.state.inputValue.length < 1}>Create Playlist</button>
                             </div>
                         </div>
                     </fieldset>
