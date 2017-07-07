@@ -8,7 +8,8 @@ export default class NewPlaylist extends Component {
         super();
 
         this.state = {
-            inputValue: ""
+            inputValue: "",
+            dirty: false
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,12 +21,21 @@ export default class NewPlaylist extends Component {
        this.setState({
            inputValue:''
        });
+       axios.post('/api/playlists/',{name : this.state.inputValue})
+        .then(res => res.data)
+        .then(result => {
+         console.log(result) // response json from the server!
+  });
+
+
     }
 
     handleChange(event) {
         this.setState({
-            inputValue: event.target.value
+            inputValue: event.target.value,
+            dirty:true
         });
+
     }
 
     render() {
@@ -50,9 +60,13 @@ export default class NewPlaylist extends Component {
                                 />
                             </div>
                         </div>
+                        { this.state.inputValue.length>16 ||(this.state.dirty &&this.state.inputValue.length<1) ?
+                        <div className="alert alert-warning">Please enter a name</div> :
+                        <div></div>
+                        }
                         <div className="form-group">
                             <div className="col-xs-10 col-xs-offset-2">
-                                <button type="submit" className="btn btn-success" disabled ={this.state.inputValue.length>16 ||this.state.inputValue.length<1 }>Create Playlist</button>
+                                <button type="submit" className="btn btn-success" disabled ={this.state.inputValue.length>16 ||this.state.inputValue.length<1}>Create Playlist</button>
                             </div>
                         </div>
                     </fieldset>
